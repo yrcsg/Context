@@ -1,4 +1,5 @@
 mAP Evaluation for SUN-RGBD self-defined groundtruth
+Xi (Stephen) Chen, 2/19/2016
 
 1. Modify your annotation and results paths in the first few lines.
 2. Results file format: “comp3_det_val_bed.txt" 
