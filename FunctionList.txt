@@ -1,0 +1,13 @@
+Readme
+
+# create CNN input:
+Use Create_Images_Labels to define parameters and run Create_Images_Labels_All()
+
+# generate SVM training data without data augmentation:
+Concatenatefeatures
+
+# generate SVM training data using data augmentation:
+Cat_duplicate_Features
+
+# Predictiveness of each object pair
+Predictiveness

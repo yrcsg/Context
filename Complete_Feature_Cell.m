@@ -39,7 +39,7 @@ Feature_Cell=cell(Num_m_tmp,4);
 % check whether there is m objects in the fast rcnn detection results
 Num_fastRCNN=size(Sorted_Object_index,1);
 
-if Num_fastRCNN<Num_m
+if Num_fastRCNN<Num_m+1
     Num_m=Num_fastRCNN-1; % why -1? it is because the target object must be in the top Num_fastRCNN object list, we need to remove it.
 end
 Cell_Potential=Sorted_Object_index(1:Num_m+1,:);

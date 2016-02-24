@@ -1,0 +1,10 @@
+a=[0.1 0.12 0.12 0.13 0.14 0.1 0.15 0.16 0.1 0.09 0.1 0.12 0.1];
+b=[0.3 0.3 0.23 0.34 0.34 0.35 0.3 0.4 0.23 0.24 0.32 0.23];
+pd_a = fitdist(a','Normal');
+pd_b = fitdist(b','Normal');
+x=0.04;
+x_a=(x-pd_a.mu)/pd_a.sigma;
+x_b=(x-pd_b.mu)/pd_b.sigma;
+pd_SND = makedist('Normal',0,1);
+Px_a = pdf(pd_SND,x_a)
+Px_b = pdf(pd_SND,x_b)

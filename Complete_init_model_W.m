@@ -7,5 +7,6 @@ function W = Complete_init_model_W(W_dim,Init_W)
 if strcmp(Init_W,'') 
     W=rand(1,W_dim);
 else
-    load(Model_W,'W');    
+    load(Init_W);  
+    W=W_new;
 end
