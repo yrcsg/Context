@@ -1,0 +1,28 @@
+% ATreeModel pipeline
+
+%% Learn contextual prior
+% lea
+Complete_Learn_Prior();
+%% Extract Features
+
+%%%--------- Extract training features ----------%%%
+
+%%%--------- Extract testing features ----------%%%
+
+%% Start training 
+
+%%%--------- Training baseline (IV=ones) ----------%%%
+
+%%%--------- Training latent model ----------%%%
+
+%% Testing
+
+%%%--------- Testing baseline (IV=ones) ----------%%%
+
+%%%--------- Testing latent model ----------%%%
+
+%% Evaluation
+
+%%%--------- Eval baseline (IV=ones) ----------%%%
+
+%%%--------- Eval latent model ----------%%%
