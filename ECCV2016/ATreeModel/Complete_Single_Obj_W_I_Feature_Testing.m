@@ -1,4 +1,4 @@
-function Complete_Single_Obj_W_I_Feature_Testing(Obj_Name,Isrescoring,Prec_Threshold)
+function Complete_Single_Obj_W_I_Feature_Testing(Obj_Name,Isrescoring,root_Path,Prec_Threshold)
 % generate testing whole features 
 
 % parameters:
@@ -60,7 +60,7 @@ Prec_FRScore_Column_index=floor((Prec_Threshold-0.1)/0.05+1);
 Prec_FRScore_Column=Prec_FRScore(:,Prec_FRScore_Column_index);
 
 if ~Isrescoring
-    Label_Small_Path=strcat(root_Path,'Label_Out_Small/',cls,'.txt');
+    Label_Small_Path=strcat(root_Path,'Label_Out_Small/',Obj_Name,'.txt');
     Contents=textread(Label_Small_Path,'%q');
     List=cell(size(Contents,1),5);
     for i=1:size(Contents,1)
@@ -211,8 +211,8 @@ for i=1:Num_testing
             for m=1:Num_Extra
                 Features_in_this_image{j+m,1}=strcat(zeroAhead,int2str(index));
             	Target_BB=[(List{id(m),2}) (List{id(m),3}) (List{id(m),4}) (List{id(m),5})];
-                Features_in_this_image{j+m,2}=cls;
-                Features_in_this_image{j+m,3}=cls;
+                Features_in_this_image{j+m,2}=Obj_Name;
+                Features_in_this_image{j+m,3}=Obj_Name;
                 Features_in_this_image{j+m,4}=Target_BB;
                 Target_Index_Image=j+m;
                 image_index=index;

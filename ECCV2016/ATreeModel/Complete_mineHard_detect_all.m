@@ -1,5 +1,5 @@
-function [negMineFeatures] = Complete_mineHard_detect_all(cls_index_32,latent,W, Num_M,  Whole_Features, negSampWholeIdx)
-thresh = -1.05 % -(1 + delta);
+function [negMineFeatures] = Complete_mineHard_detect_all(GC,cls_index_32,latent,W, Num_M,  Whole_Features, negSampWholeIdx)
+thresh = -inf % -(1 + delta);
 
 % sampleNum = size(Whole_Features, 1);
 negMineFeatures = [];
@@ -26,7 +26,7 @@ for i = negSampWholeIdx % 1 : sampleNum % loop each sample
         Num_m=size(Whole_Features{i,2},1);
         I_max=ones(1,Num_m);
     end
-    [fW] = Complete_Feature_W(cls_index_32,Whole_Features(i,:), I_max, Num_M,W_dim);   
+    [fW] = Complete_Feature_W(GC,cls_index_32,Whole_Features(i,:), I_max, Num_M,W_dim);   
     if fW*W'>=thresh       
         negMineFeatures = vertcat(negMineFeatures, fW);
     end;

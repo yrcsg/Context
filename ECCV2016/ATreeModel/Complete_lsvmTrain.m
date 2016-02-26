@@ -96,15 +96,18 @@ for np = 1 : numRelabel
                 % this is the period that SGD plot the loss 
                 loss_Plot_period=500;
                 % step size initializaiton
-                alpha_init = 0.5;
-                % maximum number of allowed iterations
-                maxiter = 100000;
+                alpha_init = 0.01;
+                % number of ephco
+                ephco=10;
+%                 % maximum number of allowed iterations
+%                 maxiter = 100000;
 %                 figure;
 %                 title(strcat('Relabeling round:',{' '},int2str(np),{' '},'Mining round:',{' '},int2str(nn)));
 %                 hold on;    
 %                 Features=[posTrainFeatures;cfsTrainFeatures;negTrainFeatures];
                 Features=[posTrainFeatures;negTrainFeatures];
-                W_new = Complete_SGD(Console_out_path,loss_Plot_period,W,Features, trainLabels,C,alpha_init,maxiter);
+                Num_P=size(posTrainFeatures,1);
+                W_new = Complete_SGD_New(Console_out_path,loss_Plot_period,W,Features, trainLabels,C,alpha_init,ephco,Num_P);
         end;
         save(strcat(model_dir,cls,'_',int2str(numRelabel),'_',int2str(numDataMine),'_',int2str(sampNegWholeNum)),'W_new');
         Complete_Average_Loss(np,nn,W_new,Features,trainLabels,Console_out_path);

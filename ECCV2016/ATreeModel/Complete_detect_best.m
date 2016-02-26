@@ -1,4 +1,4 @@
-function [posFeatures] = Complete_detect_best(cls_index_32,W, Num_M, Whole_Features, latent)
+function [posFeatures] = Complete_detect_best(GC,cls_index_32,W, Num_M, Whole_Features, latent)
 % Whole_Features=Feature_Struct.P;
 w_dim = length(W);
 sampleNum = size(Whole_Features, 1);
@@ -10,7 +10,7 @@ if latent==0
         Feature_Cell=Whole_Features{i,2};
         Num_m=size(Feature_Cell,1);
         I_init=ones(1,Num_m);    
-        fW = Complete_Feature_W(cls_index_32,Whole_Features(i,:), I_init, Num_M,W_dim);
+        fW = Complete_Feature_W(GC,cls_index_32,Whole_Features(i,:), I_init, Num_M,W_dim);
         posFeatures(i,:) = fW;
     end
 end
@@ -34,7 +34,7 @@ if latent==1
         else
             I_max=zeros(1,0);
         end        
-        fW = Complete_Feature_W(cls_index_32,Whole_Features(i,:), I_max, Num_M,W_dim);
+        fW = Complete_Feature_W(GC,cls_index_32,Whole_Features(i,:), I_max, Num_M,W_dim);
         posFeatures(i,:) = fW;
     end
 end

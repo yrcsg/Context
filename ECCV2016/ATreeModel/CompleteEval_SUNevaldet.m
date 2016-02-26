@@ -1,8 +1,8 @@
-function [rec,prec,ap] = CompleteEval_SUNevaldet(fid,Num_m,Isrescoring,cls,draw,annoPath,detresFolder,minoverlap)
+function [rec,prec,ap] = CompleteEval_SUNevaldet(fid,Isrescoring,cls,draw,annoPath,detresFolder,minoverlap)
 %% Define paths
 % annoPath = '~/Dropbox/Context/mAP/Annotation_Complete1/';
 % detresFolder = '~/Dropbox/Context/mAP/';
-detresPath = [detresFolder strcat('%s_',int2str(Num_m),'_',int2str(Isrescoring),'.txt')];
+detresPath = [detresFolder strcat('%s_',int2str(Isrescoring),'.txt')];
 formatSpec = '%s\n';
 % minoverlap = 0.5000;
 %%

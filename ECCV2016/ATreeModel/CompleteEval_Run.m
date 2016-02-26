@@ -12,7 +12,7 @@ Interest_Object_List={'bed','bathtub',...
 for i=1:size(Interest_Object_List,2)
 
     cls=Interest_Object_List{1,i};
-    draw=0;
+    draw=1;
     Num_m=10;
     Isrescoring=1;
     

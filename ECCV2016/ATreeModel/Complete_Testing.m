@@ -1,4 +1,4 @@
-function [TP,TN,P_GT,N_GT,P_D,N_D,precision,recall,f_score,TP_FR,P_D_FR,P_FR,R_FR,F_FR]=Complete_Testing(latent,fastrcnn_threshold,fastrcnn_threshold_low,cls,W,Cell_Feature_Testing,Outpath,Num_m,Num_M,Rescoring,threshold)
+function [TP,TN,P_GT,N_GT,P_D,N_D,precision,recall,f_score,TP_FR,P_D_FR,P_FR,R_FR,F_FR]=Complete_Testing(GC,cls_index_32,W_dim,latent,fastrcnn_threshold,fastrcnn_threshold_low,cls,W,Cell_Feature_Testing,Outpath,Num_M,Rescoring,threshold)
 % Inputs
 %   cls is the class name
 %   W_dir is the dir for reading W
@@ -38,7 +38,7 @@ P_D_FR=0;
 
 
 %% output file
-filename=strcat(Outpath,cls,'_',int2str(Num_m),'_',int2str(Rescoring),'.txt');
+filename=strcat(Outpath,cls,'_',int2str(Rescoring),'.txt');
 fileID = fopen(filename,'w');
 formatSpec = '%s\n';
 
@@ -54,7 +54,7 @@ Target_Index_Interesting=Complete_Find_Obj_Index(All_Object_List,cls);
 %% start testing
 % if Rescoring, means we only detect bed on bbox that detected as bed by
 % fast rcnn
-if Rescoring
+if 1
     for i=1:Num_Image
         correct=0;
         Num_Example=size(Cell_Feature_Testing{i,1},1);
@@ -69,7 +69,6 @@ if Rescoring
                 Bbox=Feature{1,4};
                 Whole_Feature=Feature{1,5};
                 fastrcnn_target_score=Whole_Feature{1,1}(Target_Index_Interesting+1);
-                fastrcnn_BG_score=Whole_Feature{1,1}(1);
 
                 if strcmp(fastrcnn_label,cls)
                     P_D_FR=P_D_FR+1;
@@ -89,20 +88,25 @@ if Rescoring
                     if fastrcnn_target_score>=fastrcnn_threshold
                         score=3+rand(1,1);
                     else
-                        if latent==1
-                            fI = Complete_Feature_I(Whole_Feature,W,Num_M,Num_m); 
-                            intcon = 1; %size(fI,1);
-                            % A = ones(1, Num_m); b = Num_m;
-                            A = []; b = [];
-                            lb = zeros(Num_m, 1);
-                            ub = ones(Num_m, 1);
-                            I_max = intlinprog(-fI,intcon,A,b,[],[],lb, ub);    
-                        elseif latent==0
-                            I_max=ones(1,Num_m);
+                        Feature_Cell=Whole_Feature{1,2};
+                        Num_m=size(Feature_Cell,1);
+                        if latent==1                           
+                            if Num_m>0
+                                intcon = 1; %size(fI,1);
+                                % A = ones(1, Num_m); b = Num_m;
+                                A = []; b = [];
+                                lb = zeros(Num_m, 1);
+                                ub = ones(Num_m, 1);
+                                % intlinprog is min, becasue we would like to max score, so we min
+                                % -fI*I
+                                I_max = intlinprog(-fI,intcon,A,b,[],[],lb, ub);
+                            else
+                                I_max=zeros(1,0);
+                            end                           
                         else
-                            I_max=zeros(1,Num_m);
-                        end                       
-                        fW = Complete_Feature_W(Whole_Feature, I_max, Num_M); 
+                            I_max=ones(1,Num_m);
+                        end       
+                        fW=Complete_Feature_W(GC,cls_index_32,Whole_Feature,I_max,Num_M,W_dim);
                         score=fW*W';
                     end
                     if score>=threshold

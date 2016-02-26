@@ -40,7 +40,6 @@ for i=1:19
     W_dir=strcat('/Users/ruichiyu/Desktop/Research/Winter/Complete_Model/baseline/',cls,'_10_6_5_3000.mat');
     % W_dir='/Users/ruichiyu/Desktop/Research/Winter/Complete_Model/lsvm_random/bed_10_6_5_3000.mat';
     load(W_dir,'W_new');
-    Outpath='/Users/ruichiyu/Desktop/Research/Winter/Complete_Result/baseline/';
     W=W_new;
     latent=false;
     [TP,TN,P_GT,N_GT,P_D,N_D,precision,recall,f_score,TP_FR,P_D_FR,P_FR,R_FR,F_FR]=...
